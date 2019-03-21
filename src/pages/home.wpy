@@ -1,0 +1,173 @@
+<style lang="less">
+.home {
+  &-banner {
+    width: 100%;
+    height: 388rpx;
+    swiper {
+      height: 388rpx;
+    }
+    &-image {
+      width: 100%;
+    }
+  }
+  &-hot {
+    &-tip {
+      height: 64rpx;
+      box-sizing: border-box;
+      padding: 18rpx 56rpx;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      image {
+        width: 22rpx;
+        height: 22rpx;
+        padding-right: 10rpx;
+      }
+      text {
+        font-size: 20rpx;
+        color: #999;
+      }
+    }
+    &-site {
+      width: 100%;
+      height: 165rpx;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: 30rpx 0 3rpx 0;
+      &-a {
+        display: block;
+        width: 150rpx;
+        height: 128rpx;
+        margin: 0 8rpx;
+        text-align: center;
+        image {
+          width: 62rpx;
+          height: 62rpx;
+          margin: 0 44rpx;
+        }
+        text {
+          color: #000;
+          font-size: 25rpx;
+          line-height: 65rpx;
+        }
+      }
+    }
+  }
+}
+</style>
+
+<template>
+  <view class="home">
+    <!-- 广告banner -->
+    <view class="home-banner">
+      <swiper
+        indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}"
+        interval="{{interval}}"
+        duration="{{duration}}"
+        indicator-color="{{indicatorColor}}"
+        indicator-active-color="{{indicatorActiveColor}}"
+      >
+        <block wx:for="{{imgUrls}}" wx:key="{{imgUrls}}">
+          <swiper-item>
+            <image src="{{item}}" class="home-banner-image" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <!-- 热点 -->
+    <view class="home-hot">
+      <view class="home-hot-tip">
+        <view wx:for="{{hotList}}" wx:for-index="idx" wx:for-item="itemName">
+          <image src="{{itemName.imgurl}}" />
+          <text>{{itemName.text}}</text>
+        </view>
+      </view>
+      <view class="home-hot-site">
+          <a href="" wx:for="{{hotSiteList}}" wx:for-index="idx" wx:for-item="itemName" class="home-hot-site-a">
+            <image src="{{itemName.imgurl}}" />
+            <text>{{itemName.text}}</text>
+          </a>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Home extends wepy.page {
+    data = {
+      imgUrls: [
+        'https://fms.res.meizu.com/dms/2019/03/06/b27906af-4996-4239-afe0-a4d14cb2a6c6.jpg',
+        'https://fms.res.meizu.com/dms/2019/03/13/1f7bbfea-6b29-4beb-bb71-7ddcc693b2b0.jpg',
+        'https://fms.res.meizu.com/dms/2019/01/25/2a15ab52-d1fe-4dca-a831-90c78d94a84e.jpg',
+        'https://fms.res.meizu.com/dms/2019/02/20/2e59b9f6-4c90-42a3-a540-1ebc2f4aa786.jpg',
+        'https://fms.res.meizu.com/dms/2019/02/11/d4f6d6c3-60a5-4111-9504-034fc2d53e6a.jpg',
+        'https://fms.res.meizu.com/dms/2019/03/13/a0110664-e3ec-4ff6-a5db-99315279e09d.jpg',
+        'https://fms.res.meizu.com/dms/2019/01/25/fa2658d6-26d9-482e-8b5f-8d4e3f64f201.jpg'
+      ],
+      indicatorDots: true,
+      autoplay: true,
+      interval: 5000,
+      duration: 1000,
+      indicatorColor: '#ccc',
+      indicatorActiveColor: '#fff', // 当前选中的index 颜色
+      hotList: [
+        {
+          imgurl: 'https://fms.res.meizu.com/dms/2018/03/30/99f49dfe-25c2-485a-b7b3-8b63d6487b46.png',
+          text: '魅族官方直供'
+        },
+        {
+          imgurl: 'https://fms.res.meizu.com/dms/2018/03/30/8f1252b1-3fb2-48e2-b992-1f38a9745314.png',
+          text: '满80免运费'
+        },
+        {
+          imgurl: 'https://fms.res.meizu.com/dms/2018/03/30/3924a1e1-5b4a-41de-9e79-ee904ec69d90.png',
+          text: '7天无理由退款'
+        }
+      ],
+      hotSiteList: [
+        {
+          imgurl: 'https://fms.res.meizu.com/dms/2019/03/11/c480f14a-d91e-43ab-aa84-4a6735d6eee4.png',
+          text: '魅族 Note9'
+        },
+        {
+          imgurl: 'https://fms.res.meizu.com/dms/2019/03/11/0f674a4e-77dd-4c2f-a7ae-420471cfe04a.png',
+          text: '魅族 X8'
+        },
+        {
+          imgurl: 'https://fms.res.meizu.com/dms/2019/03/07/5fe50002-796a-45b7-9099-4f6286dedb8e.png',
+          text: '以旧换新'
+        },
+        {
+          imgurl: 'https://fms.res.meizu.com/dms/2019/03/06/b8a79def-6f89-4af9-8075-e2161ac682b3.jpg',
+          text: 'Note9 延保'
+        }
+      ]
+    }
+    methods = {
+      changeIndicatorDots(e) {
+        this.setData({
+          indicatorDots: !this.data.indicatorDots
+        })
+      },
+      changeAutoplay(e) {
+        this.setData({
+          autoplay: !this.data.autoplay
+        })
+      },
+      intervalChange(e) {
+        this.setData({
+          interval: e.detail.value
+        })
+      },
+      durationChange(e) {
+        this.setData({
+          duration: e.detail.value
+        })
+      }
+    }
+  }
+</script>

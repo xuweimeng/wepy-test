@@ -1,0 +1,108 @@
+<style lang="less">
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+import { setStore } from 'wepy-redux'
+import configStore from './store'
+
+const store = configStore()
+setStore(store)
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/home',
+      'pages/classify',
+      'pages/fuli',
+      'pages/mine',
+      'pages/index'
+    ],
+    'tabBar': {
+      'list': [
+        {
+          'pagePath': 'pages/home',
+          'text': '首页',
+          'iconPath': 'images/tabbar/home.png',
+          'selectedIconPath': 'images/tabbar/home1.png'
+        },
+        {
+          'pagePath': 'pages/classify',
+          'text': '分类',
+          'iconPath': 'images/tabbar/classify.png',
+          'selectedIconPath': 'images/tabbar/classify1.png'
+        },
+        {
+          'pagePath': 'pages/fuli',
+          'text': '福利',
+          'iconPath': 'images/tabbar/fuli.png',
+          'selectedIconPath': 'images/tabbar/fuli1.png'
+        },
+        {
+          'pagePath': 'pages/mine',
+          'text': '我的',
+          'iconPath': 'images/tabbar/mine.png',
+          'selectedIconPath': 'images/tabbar/mine1.png'
+        }
+      ],
+      'color': '#767676',
+      'selectedColor': '#fc4645'
+    },
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black'
+    }
+  }
+
+  globalData = {
+    userInfo: null
+  }
+
+  constructor () {
+    super()
+    this.use('requestfix')
+  }
+
+  onLaunch() {
+    this.testAsync()
+  }
+
+  sleep (s) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('promise resolved')
+      }, s * 1000)
+    })
+  }
+
+  async testAsync () {
+    const data = await this.sleep(3)
+    console.log(data)
+  }
+
+  getUserInfo(cb) {
+    const that = this
+    if (this.globalData.userInfo) {
+      return this.globalData.userInfo
+    }
+    wepy.getUserInfo({
+      success (res) {
+        that.globalData.userInfo = res.userInfo
+        cb && cb(res.userInfo)
+      }
+    })
+  }
+}
+</script>

@@ -1,0 +1,15 @@
+<style lang="less">
+
+</style>
+
+<template>
+  <view>
+    <text>我是Classify</text>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Classify extends wepy.page {
+  }
+</script>

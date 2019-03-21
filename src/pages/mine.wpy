@@ -1,0 +1,15 @@
+<style lang="less">
+
+</style>
+
+<template>
+  <view>
+    <text>我是Mine</text>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Mine extends wepy.page {
+  }
+</script>
